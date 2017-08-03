@@ -53,6 +53,7 @@
 #' @param R integer array red data
 #' @param G integer array green data
 #' @param B integer array blue data
+#' @param color character array of hex valued color values
 #' @export
 #' @importFrom Rcpp sourceCpp
 #' @family rlas
@@ -60,7 +61,7 @@
 writelas = function(file, header, X, Y, Z, gpstime, Intensity, ReturnNumber,
                     NumberOfReturns, ScanDirectionFlag, EdgeOfFlightline,
                     Classification, ScanAngle, UserData, PointSourceID,
-                    R, G, B)
+                    R, G, B, color)
 {
   islas = tools::file_ext(file) %in% c("las", "laz")
 
@@ -128,6 +129,10 @@ writelas = function(file, header, X, Y, Z, gpstime, Intensity, ReturnNumber,
     green <- G
     blue <- B
   }
+  if(!missing(color))
+  {
+    c <- color
+  }
 
-  laswriter(file,header,X,Y,Z,I,RN,NoR,SDF,EoF,C,SA,UD, PSI,time,red,green,blue)
+  laswriter(file,header,X,Y,Z,I,RN,NoR,SDF,EoF,C,SA,UD, PSI,time,red,green,blue,c)
 }
